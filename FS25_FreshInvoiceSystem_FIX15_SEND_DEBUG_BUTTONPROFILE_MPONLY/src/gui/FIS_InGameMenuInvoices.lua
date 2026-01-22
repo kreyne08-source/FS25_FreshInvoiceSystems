@@ -404,19 +404,27 @@ function FIS_InGameMenuInvoices:onClickOutbox()
 end
 
 function FIS_InGameMenuInvoices:onClickNewInvoice()
+    Logging.info("[FIS] onClickNewInvoice called")
+    
     local farmId = fisGetPlayerFarmId()
     if farmId == nil or farmId == FarmManager.SPECTATOR_FARM_ID then
+        Logging.warning("[FIS] onClickNewInvoice: farmId is nil or spectator")
         return
     end
+    Logging.info("[FIS] onClickNewInvoice: farmId=%s", tostring(farmId))
 
     if not FIS_Permissions.hasFinancePermission(farmId) then
+        Logging.warning("[FIS] onClickNewInvoice: no finance permission")
         return
     end
 
     local dlg = g_gui.guis["FIS_CreateInvoiceDialog"]
     if dlg ~= nil then
+        Logging.info("[FIS] onClickNewInvoice: setting callback and showing dialog")
         dlg:setCallback(self.onInvoiceCreated, self)
         g_gui:showDialog("FIS_CreateInvoiceDialog")
+    else
+        Logging.error("[FIS] onClickNewInvoice: FIS_CreateInvoiceDialog not found in g_gui.guis")
     end
 end
 
@@ -463,14 +471,22 @@ function FIS_InGameMenuInvoices:onClickShowDetails()
 end
 
 function FIS_InGameMenuInvoices:onInvoiceCreated(toFarmId, category, desc, lineItems)
+    Logging.info("[FIS] onInvoiceCreated called: toFarmId=%s, category=%s, desc=%s, lineItems=%d", 
+        tostring(toFarmId), tostring(category), tostring(desc), lineItems ~= nil and #lineItems or 0)
+    
     local farmId = fisGetPlayerFarmId()
     if farmId == nil or farmId == FarmManager.SPECTATOR_FARM_ID then
+        Logging.warning("[FIS] onInvoiceCreated: farmId is nil or spectator")
         return
     end
+    Logging.info("[FIS] onInvoiceCreated: farmId=%s", tostring(farmId))
 
     if g_fis_invoiceManager ~= nil then
+        Logging.info("[FIS] onInvoiceCreated: calling g_fis_invoiceManager:createInvoice")
         g_fis_invoiceManager:createInvoice(farmId, toFarmId, category, desc, lineItems)
-            self:updateContent()
+        self:updateContent()
+    else
+        Logging.error("[FIS] onInvoiceCreated: g_fis_invoiceManager is nil!")
     end
 end
 

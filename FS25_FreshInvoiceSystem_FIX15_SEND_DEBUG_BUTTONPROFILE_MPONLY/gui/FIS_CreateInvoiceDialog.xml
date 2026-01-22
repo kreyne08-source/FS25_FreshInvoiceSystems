@@ -125,9 +125,9 @@
         </GuiElement>
 
         <BoxLayout profile="fs25_dialogButtonBox" id="buttonsPC">
-            <Button profile="buttonOK" text="$l10n_ui_fis_send" onClick="onClickSend" id="sendButton"/>
+            <Button profile="fs25_button" text="$l10n_ui_fis_send" onClick="onClickSend" id="sendButton"/>
             <Bitmap profile="fs25_dialogButtonBoxSeparator" />
-            <Button profile="buttonBack" text="$l10n_ui_fis_close" onClick="onClickCancel" id="backButton"/>
+            <Button profile="fs25_button" text="$l10n_ui_fis_close" onClick="onClickCancel" id="backButton"/>
         </BoxLayout>
     </GuiElement>
 </GUI>
