@@ -574,10 +574,29 @@ function FIS_CreateInvoiceDialog:onClickSend()
         return
     end
 
-    self:close()
-
+    -- Execute callback with error handling BEFORE closing dialog
+    local callbackSuccess = true
     if self.callbackFunc ~= nil then
-        self.callbackFunc(self.callbackTarget, toFarmId, category, desc, lineItems)
+        local success, err = pcall(function()
+            self.callbackFunc(self.callbackTarget, toFarmId, category, desc, lineItems)
+        end)
+        
+        if not success then
+            callbackSuccess = false
+            if Logging ~= nil and Logging.error ~= nil then
+                Logging.error("[FIS] Error in invoice creation callback: %s", tostring(err))
+            end
+            -- Show error to user since dialog is still open
+            if self.errorText ~= nil and self.errorText.setText ~= nil then
+                self.errorText:setText(self.i18n:getText("ui_fis_err_createFailed") or "Error creating invoice. Check log for details.")
+            end
+            return  -- Don't close dialog on error
+        end
+    end
+
+    -- Only close the dialog if callback succeeded
+    if callbackSuccess then
+        self:close()
     end
 end
 

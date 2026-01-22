@@ -404,19 +404,47 @@ function FIS_InGameMenuInvoices:onClickOutbox()
 end
 
 function FIS_InGameMenuInvoices:onClickNewInvoice()
+    -- Safely get player farm ID
     local farmId = fisGetPlayerFarmId()
     if farmId == nil or farmId == FarmManager.SPECTATOR_FARM_ID then
+        if Logging ~= nil and Logging.warning ~= nil then
+            Logging.warning("[FIS] Cannot create invoice: invalid or spectator farm")
+        end
         return
     end
 
+    -- Check permissions
     if not FIS_Permissions.hasFinancePermission(farmId) then
+        if Logging ~= nil and Logging.warning ~= nil then
+            Logging.warning("[FIS] Cannot create invoice: no finance permission for farm %d", farmId)
+        end
+        return
+    end
+
+    -- Show the create invoice dialog
+    if g_gui == nil or g_gui.guis == nil then
+        if Logging ~= nil and Logging.error ~= nil then
+            Logging.error("[FIS] Cannot create invoice: g_gui not available")
+        end
         return
     end
 
     local dlg = g_gui.guis["FIS_CreateInvoiceDialog"]
     if dlg ~= nil then
-        dlg:setCallback(self.onInvoiceCreated, self)
-        g_gui:showDialog("FIS_CreateInvoiceDialog")
+        -- Only show dialog if we can properly set up the callback
+        if dlg.setCallback ~= nil and g_gui.showDialog ~= nil then
+            dlg:setCallback(self.onInvoiceCreated, self)
+            g_gui:showDialog("FIS_CreateInvoiceDialog")
+        else
+            if Logging ~= nil and Logging.error ~= nil then
+                Logging.error("[FIS] Cannot create invoice: dialog setup incomplete (setCallback=%s, showDialog=%s)", 
+                    tostring(dlg.setCallback ~= nil), tostring(g_gui.showDialog ~= nil))
+            end
+        end
+    else
+        if Logging ~= nil and Logging.error ~= nil then
+            Logging.error("[FIS] Cannot create invoice: FIS_CreateInvoiceDialog not found")
+        end
     end
 end
 
@@ -463,14 +491,44 @@ function FIS_InGameMenuInvoices:onClickShowDetails()
 end
 
 function FIS_InGameMenuInvoices:onInvoiceCreated(toFarmId, category, desc, lineItems)
+    -- Safely get player farm ID
     local farmId = fisGetPlayerFarmId()
     if farmId == nil or farmId == FarmManager.SPECTATOR_FARM_ID then
+        if Logging ~= nil and Logging.warning ~= nil then
+            Logging.warning("[FIS] Invoice creation callback: invalid or spectator farm")
+        end
         return
     end
 
-    if g_fis_invoiceManager ~= nil then
-        g_fis_invoiceManager:createInvoice(farmId, toFarmId, category, desc, lineItems)
-            self:updateContent()
+    -- Create the invoice if manager is available
+    if g_fis_invoiceManager ~= nil and g_fis_invoiceManager.createInvoice ~= nil then
+        if Logging ~= nil and Logging.info ~= nil then
+            Logging.info("[FIS] Creating invoice from farm %d to farm %s", farmId, toFarmId ~= nil and tostring(toFarmId) or "nil")
+        end
+        
+        local success, err = pcall(function()
+            g_fis_invoiceManager:createInvoice(farmId, toFarmId, category, desc, lineItems)
+        end)
+        
+        if not success then
+            if Logging ~= nil and Logging.error ~= nil then
+                Logging.error("[FIS] Error creating invoice: %s", tostring(err))
+            end
+        end
+        
+        -- Update content after invoice creation
+        if self.updateContent ~= nil then
+            local updateSuccess, updateErr = pcall(function()
+                self:updateContent()
+            end)
+            if not updateSuccess and Logging ~= nil and Logging.warning ~= nil then
+                Logging.warning("[FIS] Error updating content after invoice creation: %s", tostring(updateErr))
+            end
+        end
+    else
+        if Logging ~= nil and Logging.error ~= nil then
+            Logging.error("[FIS] Cannot create invoice: invoice manager not available")
+        end
     end
 end
 

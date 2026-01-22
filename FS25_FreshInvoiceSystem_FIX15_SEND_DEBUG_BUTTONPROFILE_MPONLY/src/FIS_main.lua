@@ -29,6 +29,7 @@ local function fis_isMultiplayerMission()
     return false
 end
 
+source(MOD_DIR .. "src/FIS_Debug.lua")
 source(MOD_DIR .. "src/FIS_Invoice.lua")
 source(MOD_DIR .. "src/FIS_InvoiceManager.lua")
 source(MOD_DIR .. "src/FIS_Permissions.lua")
