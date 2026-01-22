@@ -588,9 +588,12 @@ function FIS_CreateInvoiceDialog:onClickSend()
             end
             -- Show error to user if dialog is still open
             if self.errorText ~= nil and self.errorText.setText ~= nil then
-                pcall(function()
+                local textSuccess, textErr = pcall(function()
                     self.errorText:setText("Error creating invoice. Check log for details.")
                 end)
+                if not textSuccess and Logging ~= nil and Logging.warning ~= nil then
+                    Logging.warning("[FIS] Could not display error text to user: %s", tostring(textErr))
+                end
             end
         end
     end

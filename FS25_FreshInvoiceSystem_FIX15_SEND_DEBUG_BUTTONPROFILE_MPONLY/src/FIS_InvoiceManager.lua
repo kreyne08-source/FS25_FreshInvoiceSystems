@@ -125,7 +125,12 @@ function FIS_InvoiceManager:createInvoice(fromFarmId, toFarmId, category, descri
         if g_client ~= nil and g_client.getServerConnection ~= nil then
             local conn = g_client:getServerConnection()
             if conn ~= nil and conn.sendEvent ~= nil then
-                conn:sendEvent(FIS_CreateInvoiceEvent.new(fromFarmId, toFarmId, category, description, lineItems))
+                local success, err = pcall(function()
+                    conn:sendEvent(FIS_CreateInvoiceEvent.new(fromFarmId, toFarmId, category, description, lineItems))
+                end)
+                if not success and Logging ~= nil and Logging.error ~= nil then
+                    Logging.error("[FIS] Error sending create invoice event to server: %s", tostring(err))
+                end
             end
         end
         return nil

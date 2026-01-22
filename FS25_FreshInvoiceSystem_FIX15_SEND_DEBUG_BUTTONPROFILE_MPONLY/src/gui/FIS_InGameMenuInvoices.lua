@@ -514,9 +514,12 @@ function FIS_InGameMenuInvoices:onInvoiceCreated(toFarmId, category, desc, lineI
         
         -- Update content after invoice creation
         if self.updateContent ~= nil then
-            pcall(function()
+            local updateSuccess, updateErr = pcall(function()
                 self:updateContent()
             end)
+            if not updateSuccess and Logging ~= nil and Logging.warning ~= nil then
+                Logging.warning("[FIS] Error updating content after invoice creation: %s", tostring(updateErr))
+            end
         end
     else
         if Logging ~= nil and Logging.error ~= nil then
