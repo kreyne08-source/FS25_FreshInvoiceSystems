@@ -207,6 +207,8 @@ end
 
 function FIS_CreateInvoiceDialog:onOpen()
     FIS_CreateInvoiceDialog:superClass().onOpen(self)
+    
+    Logging.info("[FIS] CreateInvoiceDialog:onOpen() - callback set: %s", tostring(self.callbackFunc ~= nil))
 
     self.errorText:setText("")
     self.descInput:setText("")
@@ -216,6 +218,9 @@ function FIS_CreateInvoiceDialog:onOpen()
 
     if self.sendButton ~= nil then
         self.sendButton:setDisabled(not canFinance)
+        Logging.info("[FIS] CreateInvoiceDialog:onOpen() - sendButton disabled: %s", tostring(not canFinance))
+    else
+        Logging.warning("[FIS] CreateInvoiceDialog:onOpen() - sendButton is nil!")
     end
 
     if not canFinance then
@@ -532,52 +537,70 @@ function FIS_CreateInvoiceDialog:onClickCancel()
 end
 
 function FIS_CreateInvoiceDialog:onClickSend()
+    Logging.info("[FIS] onClickSend() called")
+    
     local myFarm = fisResolveMyFarm()
     if myFarm == nil then
+        Logging.warning("[FIS] onClickSend: myFarm is nil")
         self.errorText:setText(self.i18n:getText("ui_fis_err_farm"))
         return
     end
+    Logging.info("[FIS] onClickSend: myFarm=%s", tostring(myFarm.farmId))
+    
     if not FIS_Permissions.hasFinancePermission(myFarm.farmId) then
+        Logging.warning("[FIS] onClickSend: no finance permission for farm %s", tostring(myFarm.farmId))
         self.errorText:setText(self.i18n:getText("ui_fis_err_permission"))
         return
     end
 
     local toIndex = self.toFarmOption:getState() or 1
     local toFarmId = self.farmIds[toIndex] or 0
+    Logging.info("[FIS] onClickSend: toFarmId=%s", tostring(toFarmId))
     if toFarmId == 0 then
+        Logging.warning("[FIS] onClickSend: toFarmId is 0")
         self.errorText:setText(self.i18n:getText("ui_fis_err_selectFarm"))
         return
     end
 
     local catIndex = self.categoryOption:getState() or 1
     local category = self.categoryKeys[catIndex] or "other"
+    Logging.info("[FIS] onClickSend: category=%s", tostring(category))
 
     local desc = trim(self.descInput:getText() or "")
     if desc == "" then
+        Logging.warning("[FIS] onClickSend: description is empty")
         self.errorText:setText(self.i18n:getText("ui_fis_err_desc"))
         return
     end
+    Logging.info("[FIS] onClickSend: desc=%s", desc)
 
     self:_syncLineItemsFromUI()
     local lineItems = self.lineItems
     if #lineItems == 0 then
+        Logging.warning("[FIS] onClickSend: no line items")
         self.errorText:setText(self.i18n:getText("ui_fis_err_lineItems"))
         return
     end
+    Logging.info("[FIS] onClickSend: %d line items", #lineItems)
 
     local total = 0
     for _, item in ipairs(lineItems) do
         total = total + ((tonumber(item.quantity) or 0) * (tonumber(item.unitPrice) or 0))
     end
     if total <= 0 then
+        Logging.warning("[FIS] onClickSend: total is 0")
         self.errorText:setText(self.i18n:getText("ui_fis_err_amount"))
         return
     end
+    Logging.info("[FIS] onClickSend: total=%s", tostring(total))
 
     self:close()
 
     if self.callbackFunc ~= nil then
+        Logging.info("[FIS] onClickSend: calling callback function")
         self.callbackFunc(self.callbackTarget, toFarmId, category, desc, lineItems)
+    else
+        Logging.error("[FIS] onClickSend: callbackFunc is nil - callback was never set!")
     end
 end
 
