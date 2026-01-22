@@ -110,15 +110,32 @@ end
 
 
 function FIS_InvoiceManager:createInvoice(fromFarmId, toFarmId, category, description, lineItems)
+    -- Add safety checks for required globals
+    if g_currentMission == nil then
+        if Logging ~= nil and Logging.error ~= nil then
+            Logging.error("[FIS] createInvoice failed: g_currentMission is nil")
+        end
+        return nil
+    end
+
     if not g_currentMission:getIsServer() then
-        Logging.info("[FIS] createInvoice client->server event")
-        g_client:getServerConnection():sendEvent(FIS_CreateInvoiceEvent.new(fromFarmId, toFarmId, category, description, lineItems))
+        if Logging ~= nil and Logging.info ~= nil then
+            Logging.info("[FIS] createInvoice client->server event")
+        end
+        if g_client ~= nil and g_client.getServerConnection ~= nil then
+            local conn = g_client:getServerConnection()
+            if conn ~= nil and conn.sendEvent ~= nil then
+                conn:sendEvent(FIS_CreateInvoiceEvent.new(fromFarmId, toFarmId, category, description, lineItems))
+            end
+        end
         return nil
     end
 
     self:_ensureFarmLists(fromFarmId, toFarmId)
 
-    Logging.info(string.format("[FIS] createInvoice server from=%d to=%d", fromFarmId, toFarmId))
+    if Logging ~= nil and Logging.info ~= nil then
+        Logging.info(string.format("[FIS] createInvoice server from=%d to=%d", fromFarmId, toFarmId))
+    end
 
     local invoice = FIS_Invoice.new(true, g_currentMission:getIsClient())
     invoice.id = self.nextInvoiceId
