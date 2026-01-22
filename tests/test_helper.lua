@@ -1,7 +1,11 @@
 -- Test Helper for FIS Mod Unit Tests
--- Mocks FS25 game engine globals and utilities
+-- Provides mock objects for FS25 game engine globals and utility functions for testing
+-- This helper allows testing Lua modules in isolation without the game engine
 
 local M = {}
+
+-- Path to the mod's source files (relative to repository root)
+M.MOD_SOURCE_PATH = "FS25_FreshInvoiceSystem_FIX15_SEND_DEBUG_BUTTONPROFILE_MPONLY/src/"
 
 -- Mock global game objects
 function M.setupMocks()

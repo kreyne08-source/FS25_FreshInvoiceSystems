@@ -21,8 +21,6 @@ describe("FIS_CreateInvoiceEvent", function()
         }
         
         -- Load dependencies
-        local mod_path = "FS25_FreshInvoiceSystem_FIX15_SEND_DEBUG_BUTTONPROFILE_MPONLY/src/"
-        
         -- Mock FIS_NotifyEvent before loading InvoiceManager
         _G.FIS_NotifyEvent = {
             sendToConnection = function(connection, notificationType, textKey, p1, p2)
@@ -33,9 +31,9 @@ describe("FIS_CreateInvoiceEvent", function()
             end
         }
         
-        dofile(mod_path .. "FIS_Invoice.lua")
-        dofile(mod_path .. "FIS_InvoiceManager.lua")
-        dofile(mod_path .. "events/FIS_CreateInvoiceEvent.lua")
+        dofile(helper.MOD_SOURCE_PATH .. "FIS_Invoice.lua")
+        dofile(helper.MOD_SOURCE_PATH .. "FIS_InvoiceManager.lua")
+        dofile(helper.MOD_SOURCE_PATH .. "events/FIS_CreateInvoiceEvent.lua")
         
         FIS_CreateInvoiceEvent = _G.FIS_CreateInvoiceEvent
         

@@ -20,8 +20,7 @@ describe("FIS_Invoice", function()
         }
         
         -- Load the FIS_Invoice module
-        local mod_path = "FS25_FreshInvoiceSystem_FIX15_SEND_DEBUG_BUTTONPROFILE_MPONLY/src/"
-        dofile(mod_path .. "FIS_Invoice.lua")
+        dofile(helper.MOD_SOURCE_PATH .. "FIS_Invoice.lua")
         FIS_Invoice = _G.FIS_Invoice
     end)
     

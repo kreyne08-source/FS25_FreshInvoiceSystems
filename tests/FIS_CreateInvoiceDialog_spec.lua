@@ -49,8 +49,7 @@ describe("FIS_CreateInvoiceDialog", function()
         }
         
         -- Load the module
-        local mod_path = "FS25_FreshInvoiceSystem_FIX15_SEND_DEBUG_BUTTONPROFILE_MPONLY/src/gui/"
-        dofile(mod_path .. "FIS_CreateInvoiceDialog.lua")
+        dofile(helper.MOD_SOURCE_PATH .. "gui/FIS_CreateInvoiceDialog.lua")
         FIS_CreateInvoiceDialog = _G.FIS_CreateInvoiceDialog
     end)
     
