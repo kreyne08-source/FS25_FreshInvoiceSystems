@@ -431,11 +431,15 @@ function FIS_InGameMenuInvoices:onClickNewInvoice()
 
     local dlg = g_gui.guis["FIS_CreateInvoiceDialog"]
     if dlg ~= nil then
-        if dlg.setCallback ~= nil then
+        -- Only show dialog if we can properly set up the callback
+        if dlg.setCallback ~= nil and g_gui.showDialog ~= nil then
             dlg:setCallback(self.onInvoiceCreated, self)
-        end
-        if g_gui.showDialog ~= nil then
             g_gui:showDialog("FIS_CreateInvoiceDialog")
+        else
+            if Logging ~= nil and Logging.error ~= nil then
+                Logging.error("[FIS] Cannot create invoice: dialog setup incomplete (setCallback=%s, showDialog=%s)", 
+                    tostring(dlg.setCallback ~= nil), tostring(g_gui.showDialog ~= nil))
+            end
         end
     else
         if Logging ~= nil and Logging.error ~= nil then
@@ -499,7 +503,7 @@ function FIS_InGameMenuInvoices:onInvoiceCreated(toFarmId, category, desc, lineI
     -- Create the invoice if manager is available
     if g_fis_invoiceManager ~= nil and g_fis_invoiceManager.createInvoice ~= nil then
         if Logging ~= nil and Logging.info ~= nil then
-            Logging.info("[FIS] Creating invoice from farm %d to farm %d", farmId, toFarmId or 0)
+            Logging.info("[FIS] Creating invoice from farm %d to farm %s", farmId, toFarmId ~= nil and tostring(toFarmId) or "nil")
         end
         
         local success, err = pcall(function()
