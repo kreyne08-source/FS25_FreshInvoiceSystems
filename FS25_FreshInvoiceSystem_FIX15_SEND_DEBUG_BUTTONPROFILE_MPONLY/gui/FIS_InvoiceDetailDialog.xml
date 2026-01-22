@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement profile="newLayer" />
+    <Bitmap profile="dialogFullscreenBg" id="dialogBg" />
+
+    <GuiElement profile="FIS_createDialog" id="dialogElement">
+        <GuiElement profile="fs25_dialogContentContainer">
+            <BoxLayout profile="FIS_createDialogVBox" position="0px -18px">
+                <Text profile="fs25_dialogTitle" id="titleText" text="Invoice details"/>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="ID"/>
+                    <Text profile="fs25_textMedium" id="idText" text=""/>
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="From"/>
+                    <Text profile="fs25_textMedium" id="fromText" text=""/>
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="To"/>
+                    <Text profile="fs25_textMedium" id="toText" text=""/>
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="Category"/>
+                    <Text profile="fs25_textMedium" id="categoryText" text=""/>
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="Amount"/>
+                    <Text profile="fs25_textMedium" id="amountText" text=""/>
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="State"/>
+                    <Text profile="fs25_textMedium" id="stateText" text=""/>
+                </BoxLayout>
+
+                <Text profile="fs25_textMedium" text="Description"/>
+                <Text profile="fs25_textSmall" id="descText" text=""/>
+
+                <GuiElement profile="fs25_dialogButtonContainer">
+                    <Button profile="fs25_button" text="$l10n_ui_close" onClick="onClickClose" />
+                </GuiElement>
+            </BoxLayout>
+        </GuiElement>
+    </GuiElement>
+</GUI>

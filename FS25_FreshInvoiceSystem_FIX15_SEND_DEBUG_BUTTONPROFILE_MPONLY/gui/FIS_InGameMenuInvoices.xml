@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<GUI name="FIS_InGameMenuInvoices">
+    <!--
+        FS25 InGameMenu page (TabbedMenuFrameElement).
+
+        FS25 RULE: A TabbedMenu page must not embed its own menu chrome (fs25_menuContainer,
+        header/footer panels, or line separators used for menu chrome). InGameMenu/TabbedMenu
+        already draws the title area and footer hints. This file therefore contains CONTENT ONLY.
+
+        IDs and callback names align to src/gui/FIS_InGameMenuInvoices.lua.
+    -->
+
+    <!--
+        IMPORTANT (FS25): Avoid inheritSize/inheritPosition on TabbedMenu pages.
+        In some menu build orders this can resolve to 0x0 and the entire page renders blank.
+        Use explicit full-size sizing instead.
+    -->
+    <!--
+        FS25 NOTE:
+        "FrameElement" is NOT a registered GUI element type in FS25.
+        Using it causes:
+          Could not find type name FrameElement in registered GUI element classes
+        which prevents the TabbedMenuFrameElement page from binding its UI fields.
+        Result: blank page + footer actions not firing.
+
+        Use a normal GuiElement container instead (same pattern as other FS25
+        TabbedMenuFrameElement pages, e.g. EnhancedLoanSystem).
+    -->
+    <GuiElement profile="fs25_menuContainer">
+
+        <!-- Header panel (title + subtle info) -->
+        <GuiElement profile="fs25_menuHeaderPanel">
+            <Text profile="fs25_textDefault" text="$l10n_ui_fis_title"/>
+            <!-- optional count/debug label bound by lua if present -->
+            <Text profile="fs25_textSmall" id="fisHintText" position="0px 42dp" text=""/>
+        </GuiElement>
+
+        <!-- Top navigation (FS25): buttons across the top as requested -->
+        <BoxLayout profile="fs25_buttonRow" position="0px 86dp" size="1 44dp" id="fisTopNavRow" spacing="8dp">
+            <!-- Fixed widths so everything lines up on one row (7 * 0.14 = 0.98) -->
+            <Button profile="fs25_button" size="0.14 44dp" text="$l10n_ui_fis_inbox" onClick="onClickInbox" id="inboxButton"/>
+            <Button profile="fs25_button" size="0.14 44dp" text="$l10n_ui_fis_outbox" onClick="onClickOutbox" id="outboxButton"/>
+            <Button profile="fs25_button" size="0.14 44dp" text="$l10n_ui_fis_new" onClick="onClickNewInvoice" id="newButton"/>
+            <Button profile="fs25_button" size="0.14 44dp" text="$l10n_ui_fis_pay" onClick="onClickPay" id="payButton"/>
+            <Button profile="fs25_button" size="0.14 44dp" text="$l10n_ui_fis_decline" onClick="onClickDecline" id="declineButton"/>
+            <Button profile="fs25_button" size="0.14 44dp" text="$l10n_ui_fis_tab_history" onClick="onClickTabHistory" id="tabHistoryButton"/>
+            <Button profile="fs25_button" size="0.14 44dp" text="$l10n_ui_fis_tab_settings" onClick="onClickTabSettings" id="tabSettingsButton"/>
+        </BoxLayout>
+
+        <!-- Panels for custom tabs -->
+
+        <!-- Invoices panel -->
+        <GuiElement id="invoicesPanel" position="0px 140dp" size="1 824dp">
+            <!-- Column header row (content-only; no menu chrome separators) -->
+            <GuiElement profile="fs25_statisticsHeaderBox" position="0px 0px" size="1 28dp">
+                <Text profile="FIS_headerCenter" position="0 0px"    size="0.14 20px" name="from"   text="$l10n_ui_fis_from"/>
+                <Text profile="FIS_headerCenter" position="0.14 0px" size="0.14 20px" name="to"     text="$l10n_ui_fis_to"/>
+                <Text profile="FIS_headerCenter" position="0.28 0px" size="0.14 20px" name="cat"    text="$l10n_ui_fis_category"/>
+                <Text profile="FIS_headerRight"  position="0.42 0px" size="0.10 20px" name="amount" text="$l10n_ui_fis_amount"/>
+                <Text profile="FIS_headerCenter" position="0.52 0px" size="0.10 20px" name="state"  text="$l10n_ui_fis_state"/>
+                <Text profile="FIS_headerLeft"   position="0.62 0px" size="0.38 20px" name="desc"   text="$l10n_ui_fis_description"/>
+            </GuiElement>
+
+            <!-- Invoice list -->
+		    <SmoothList profile="FIS_list" id="invoiceTable" position="0px 32dp" size="1 792dp">
+                <ListItem profile="FIS_listItem" name="rowTemplate">
+			        <Text profile="FIS_cellCenter" position="0 0px"    size="0.14 20px" name="from"/>
+			        <Text profile="FIS_cellCenter" position="0.14 0px" size="0.14 20px" name="to"/>
+			        <Text profile="FIS_cellCenter" position="0.28 0px" size="0.14 20px" name="cat"/>
+			        <Text profile="FIS_cellRight"  position="0.42 0px" size="0.10 20px" name="amount"/>
+			        <Text profile="FIS_cellCenter" position="0.52 0px" size="0.10 20px" name="state"/>
+			        <Text profile="FIS_cellLeft"   position="0.62 0px" size="0.38 20px" name="desc"/>
+                </ListItem>
+            </SmoothList>
+
+            <ThreePartBitmap profile="FIS_ingameMenuSlider" position="0px 32dp" size="26dp 792dp">
+                <Slider profile="fs25_listSlider" dataElementId="invoiceTable"/>
+            </ThreePartBitmap>
+        </GuiElement>
+
+        <!-- History panel -->
+        <GuiElement id="historyPanel" position="0px 140dp" size="1 824dp" visible="false">
+            <GuiElement profile="fs25_statisticsHeaderBox" position="0px 0px" size="1 28dp">
+                <Text profile="FIS_headerCenter" position="0 0px"    size="0.14 20px" name="from"   text="$l10n_ui_fis_from"/>
+                <Text profile="FIS_headerCenter" position="0.14 0px" size="0.14 20px" name="to"     text="$l10n_ui_fis_to"/>
+                <Text profile="FIS_headerCenter" position="0.28 0px" size="0.14 20px" name="cat"    text="$l10n_ui_fis_category"/>
+                <Text profile="FIS_headerRight"  position="0.42 0px" size="0.10 20px" name="amount" text="$l10n_ui_fis_amount"/>
+                <Text profile="FIS_headerCenter" position="0.52 0px" size="0.10 20px" name="state"  text="$l10n_ui_fis_state"/>
+                <Text profile="FIS_headerLeft"   position="0.62 0px" size="0.38 20px" name="desc"   text="$l10n_ui_fis_description"/>
+            </GuiElement>
+
+		    <SmoothList profile="FIS_list" id="historyTable" position="0px 32dp" size="1 792dp">
+                <ListItem profile="FIS_listItem" name="rowTemplate">
+			        <Text profile="FIS_cellCenter" position="0 0px"    size="0.14 20px" name="from"/>
+                    <Text profile="FIS_cellCenter" position="0.14 0px" size="0.14 20px" name="to"/>
+                    <Text profile="FIS_cellCenter" position="0.28 0px" size="0.14 20px" name="cat"/>
+                    <Text profile="FIS_cellRight"  position="0.42 0px" size="0.10 20px" name="amount"/>
+                    <Text profile="FIS_cellCenter" position="0.52 0px" size="0.10 20px" name="state"/>
+                    <Text profile="FIS_cellLeft"   position="0.62 0px" size="0.38 20px" name="desc"/>
+                </ListItem>
+            </SmoothList>
+
+            <ThreePartBitmap profile="FIS_ingameMenuSlider" position="0px 32dp" size="26dp 792dp">
+                <Slider profile="fs25_listSlider" dataElementId="historyTable"/>
+            </ThreePartBitmap>
+        </GuiElement>
+
+        <!-- Settings panel -->
+        <GuiElement id="settingsPanel" position="0px 140dp" size="1 824dp" visible="false">
+            <GuiElement profile="fs25_statisticsHeaderBox" position="0px 0px" size="1 28dp">
+                <Text profile="fs25_textDark" position="12dp 4dp" text="$l10n_ui_fis_settings_title"/>
+            </GuiElement>
+
+            <GuiElement position="0px 40dp" size="1 120dp">
+                <Text profile="fs25_textDark" position="12dp 0px" size="0.95 24dp" text="$l10n_ui_fis_settings_hint1"/>
+                <Text profile="fs25_textSmall" position="12dp 28dp" size="0.95 24dp" text="$l10n_ui_fis_settings_hint2"/>
+                <Text profile="fs25_textSmall" position="12dp 56dp" size="0.95 24dp" text="$l10n_ui_fis_settings_hint3"/>
+            </GuiElement>
+        </GuiElement>
+
+    </GuiElement>
+</GUI>

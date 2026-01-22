@@ -1,0 +1,1 @@
+Final UI polish pass applied: spacing, hierarchy, badges, warnings. Ready for icon/profile tuning.

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement profile="newLayer" />
+    <Bitmap profile="dialogFullscreenBg" id="dialogBg" />
+
+    <GuiElement profile="FIS_createDialog" id="dialogElement">
+        <!-- Custom content container to avoid clipping line item rows -->
+        <GuiElement profile="FIS_dialogContentContainer">
+            <BoxLayout profile="FIS_createDialogVBox" position="0px -18px">
+                <Text profile="fs25_dialogTitle" text="$l10n_ui_fis_create_title" id="titleText"/>
+                <Text profile="fs25_textSmall" text="$l10n_ui_fis_create_hint"/>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="$l10n_ui_fis_toFarm"/>
+                    <MultiTextOption profile="fs25_multiTextOption" id="toFarmOption" onClick="onOptionChanged" />
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="$l10n_ui_fis_category"/>
+                    <MultiTextOption profile="fs25_multiTextOption" id="categoryOption" onClick="onOptionChanged" />
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="$l10n_ui_fis_preset"/>
+                    <MultiTextOption profile="fs25_multiTextOption" id="presetOption" onClick="onPresetChanged" />
+                </BoxLayout>
+                <BoxLayout profile="FIS_rowHBox">
+                    <Text profile="fs25_textMedium" text="$l10n_ui_fis_item"/>
+                    <MultiTextOption profile="fs25_multiTextOption" id="itemOption" onClick="onOptionChanged" />
+                    <Button profile="fs25_buttonSmall" text="$l10n_ui_fis_addItem" onClick="onClickAddSelectedItem" id="addItemButton"/>
+                </BoxLayout>
+
+
+                <Text profile="fs25_textMedium" text="$l10n_ui_fis_desc"/>
+                <TextInput profile="FIS_textInputWide" id="descInput" onTextChanged="onTextChanged" enterWhenClickOutside="false">
+                    <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                    <Bitmap profile="fs25_textInputIconBox" position="0px 0px">
+                        <Bitmap profile="fs25_textInputIcon" />
+                    </Bitmap>
+                </TextInput>
+
+				<BoxLayout profile="FIS_lineHeaderRow" id="lineHeader">
+					<Text profile="FIS_headerCellItem" text="$l10n_ui_fis_item"/>
+					<Text profile="FIS_headerCellQty" text="$l10n_ui_fis_qty"/>
+					<Text profile="FIS_headerCellPrice" text="$l10n_ui_fis_unitPrice"/>
+					<Text profile="FIS_headerCellUnit" text="$l10n_ui_fis_unit"/>
+				</BoxLayout>
+<ThreePartBitmap profile="fs25_lineSeparatorBottom"/>
+
+                <BoxLayout profile="FIS_lineVBox" id="lineVBox">
+                    <!-- Line item 1 -->
+                    <BoxLayout profile="FIS_lineRow">
+                        <TextInput profile="FIS_lineDesc" id="itemDesc1" onTextChanged="onTextChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_lineQty" id="itemQty1" onTextChanged="onLineQtyChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_linePrice" id="itemPrice1" onTextChanged="onLinePriceChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <MultiTextOption profile="fs25_multiTextOption" id="itemUnit1" onClick="onTextChanged" />
+                    </BoxLayout>
+                    <!-- Line item 2 -->
+                    <BoxLayout profile="FIS_lineRow">
+                        <TextInput profile="FIS_lineDesc" id="itemDesc2" onTextChanged="onTextChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_lineQty" id="itemQty2" onTextChanged="onLineQtyChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_linePrice" id="itemPrice2" onTextChanged="onLinePriceChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <MultiTextOption profile="fs25_multiTextOption" id="itemUnit2" onClick="onTextChanged" />
+                    </BoxLayout>
+                    <!-- Line item 3 -->
+                    <BoxLayout profile="FIS_lineRow">
+                        <TextInput profile="FIS_lineDesc" id="itemDesc3" onTextChanged="onTextChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_lineQty" id="itemQty3" onTextChanged="onLineQtyChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_linePrice" id="itemPrice3" onTextChanged="onLinePriceChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <MultiTextOption profile="fs25_multiTextOption" id="itemUnit3" onClick="onTextChanged" />
+                    </BoxLayout>
+                    <!-- Line item 4 -->
+                    <BoxLayout profile="FIS_lineRow">
+                        <TextInput profile="FIS_lineDesc" id="itemDesc4" onTextChanged="onTextChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_lineQty" id="itemQty4" onTextChanged="onLineQtyChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_linePrice" id="itemPrice4" onTextChanged="onLinePriceChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <MultiTextOption profile="fs25_multiTextOption" id="itemUnit4" onClick="onTextChanged" />
+                    </BoxLayout>
+                    <!-- Line item 5 -->
+                    <BoxLayout profile="FIS_lineRow">
+                        <TextInput profile="FIS_lineDesc" id="itemDesc5" onTextChanged="onTextChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_lineQty" id="itemQty5" onTextChanged="onLineQtyChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <TextInput profile="FIS_linePrice" id="itemPrice5" onTextChanged="onLinePriceChanged" enterWhenClickOutside="false">
+                            <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                        </TextInput>
+                        <MultiTextOption profile="fs25_multiTextOption" id="itemUnit5" onClick="onTextChanged" />
+                    </BoxLayout>
+                </BoxLayout>
+
+                <BoxLayout profile="FIS_totalsHBox">
+                    <Text profile="fs25_textMedium" text="$l10n_ui_fis_total"/>
+                    <Text profile="fs25_textMedium" id="totalText" text="$0"/>
+                </BoxLayout>
+
+                <Text profile="fs25_textSmall" id="errorText" text=""/>
+            </BoxLayout>
+        </GuiElement>
+
+        <BoxLayout profile="fs25_dialogButtonBox" id="buttonsPC">
+            <Button profile="buttonOK" text="$l10n_ui_fis_send" onClick="onClickSend" id="sendButton"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator" />
+            <Button profile="buttonBack" text="$l10n_ui_fis_close" onClick="onClickCancel" id="backButton"/>
+        </BoxLayout>
+    </GuiElement>
+</GUI>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inputBinding>
+    <action name="FIS_TOGGLE_INVOICES_MENU" category="MENU" priority="1">
+        <binding device="KB_MOUSE_DEFAULT" input="KEY_i" axisComponent="+" />
+    </action>
+</inputBinding>

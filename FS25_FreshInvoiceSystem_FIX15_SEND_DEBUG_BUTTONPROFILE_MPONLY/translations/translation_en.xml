@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<l10n>
+  <texts>
+    <text name="ui_fis_title" text="Invoices"/>
+    <text name="ui_fis_tab_invoices" text="Invoices"/>
+    <text name="ui_fis_tab_history" text="History"/>
+    <text name="ui_fis_tab_settings" text="Settings"/>
+    <text name="ui_fis_inbox" text="Inbox"/>
+    <text name="ui_fis_outbox" text="Outbox"/>
+    <text name="ui_fis_new" text="New Invoice"/>
+    <text name="ui_fis_decline" text="Decline"/>
+
+    <!-- Footer buttons (FS25 InGameMenu) -->
+    <text name="ui_fis_create" text="Create invoice"/>
+    <text name="ui_fis_delete" text="Delete"/>
+    <text name="ui_fis_details" text="Details"/>
+    <text name="ui_fis_pay" text="Pay invoice"/>
+
+
+    <!-- Settings tab -->
+    <text name="ui_fis_settings_title" text="Settings"/>
+    <text name="ui_fis_settings_hint1" text="Server-side settings are configured via XML."/>
+    <text name="ui_fis_settings_hint2" text="Dedicated servers: edit config_server.xml in the mod folder."/>
+    <text name="ui_fis_close" text="Close"/>
+    <text name="ui_fis_toFarm" text="To farm"/>
+    <text name="ui_fis_fromFarm" text="From farm"/>
+    <!-- Column headers (used by the InGameMenu invoices list) -->
+    <text name="ui_fis_from" text="From"/>
+    <text name="ui_fis_to" text="To"/>
+    <text name="ui_fis_category" text="Category"/>
+    <text name="ui_fis_amount" text="Amount"/>
+    <text name="ui_fis_state" text="State"/>
+    <text name="ui_fis_description" text="Description"/>
+    <text name="ui_fis_preset" text="Preset"/>
+    <!-- Amount column label above is reused by other dialogs -->
+    <text name="ui_fis_desc" text="Description"/>
+    <text name="ui_fis_created" text="Created"/>
+    <text name="ui_fis_paid" text="Paid"/>
+    <text name="ui_fis_open" text="Open"/>
+    <text name="ui_fis_declined" text="Declined"/>
+    <text name="ui_fis_invalid" text="Invalid"/>
+    <text name="ui_fis_create_title" text="Create Invoice"/>
+    <text name="ui_fis_create_hint" text="Send an invoice to another farm."/>
+    <text name="ui_fis_send" text="Send"/>
+    <text name="ui_fis_error" text="Error"/>
+    <text name="ui_fis_err_selectFarm" text="Please select a target farm."/>
+    <text name="ui_fis_err_amount" text="Please enter a valid amount."/>
+    <text name="ui_fis_err_lineItems" text="Please add at least one line item."/>
+    <text name="ui_fis_err_desc" text="Please enter a description."/>
+    <text name="ui_fis_err_permission" text="Only the Farm Manager can create, pay, or decline invoices."/>
+    <text name="ui_fis_err_state" text="This invoice can no longer be changed."/>
+    <text name="ui_fis_err_money" text="Not enough money."/>
+
+    <text name="ui_fis_noOtherFarms" text="No other farms"/>
+
+    <text name="ui_fis_item_desc" text="Item"/>
+    <text name="ui_fis_qty" text="Qty"/>
+    <text name="ui_fis_unitPrice" text="Unit price"/>
+    <text name="ui_fis_unit" text="Unit"/>
+    <text name="ui_fis_total" text="Total"/>
+
+    <!-- Units -->
+    <text name="ui_fis_unit_units" text="Units"/>
+    <text name="ui_fis_unit_liters" text="Liters"/>
+    <text name="ui_fis_unit_hours" text="Hours"/>
+
+    <!-- Categories -->
+    <text name="ui_fis_cat_service" text="Service"/>
+    <text name="ui_fis_cat_goods" text="Goods"/>
+    <text name="ui_fis_cat_rental" text="Rental"/>
+    <text name="ui_fis_cat_contract" text="Contract"/>
+    <text name="ui_fis_cat_other" text="Other"/>
+
+    <!-- Presets -->
+    <text name="ui_fis_preset_custom" text="Custom"/>
+    <text name="ui_fis_preset_fieldwork_hours" text="Fieldwork (hours)"/>
+    <text name="ui_fis_preset_transport" text="Transport"/>
+    <text name="ui_fis_preset_liquid_liters" text="Liquid (liters)"/>
+    <text name="ui_fis_preset_bales" text="Bales"/>
+
+    <!-- Notifications -->
+    <text name="ui_fis_notify_received" text="Invoice received from %s (%s)."/>
+    <text name="ui_fis_notify_sent" text="Invoice sent to %s (%s)."/>
+    <text name="ui_fis_notify_paid_sender" text="Your invoice was paid by %s (%s)."/>
+    <text name="ui_fis_notify_paid_receiver" text="You paid an invoice to %s (%s)."/>
+    <text name="ui_fis_notify_declined_sender" text="Your invoice was declined by %s (%s)."/>
+    <text name="ui_fis_notify_declined_receiver" text="You declined an invoice from %s (%s)."/>
+    <text name="fis_invoiceOverdue" text="OVERDUE"/>
+    <text name="fis_invoiceReminder" text="Invoice %s is overdue"/>
+    <text name="ui_fis_openInvoices" text="Open Invoices"/>
+    <text name="FIS_action_openMenu" text="Open Invoices"/>
+      <text name="UI_FIS_ITEM" text="Item"/>
+</texts>
+    <text name="ui_fis_noRecipientFarms" text="No other farms available (multiplayer needed)"/>
+    <text name="ui_fis_item" text="Item"/>
+    <text name="ui_fis_addItem" text="Add"/>
+    <text name="ui_fis_noMarketItems" text="No market items available"/>
+</l10n>

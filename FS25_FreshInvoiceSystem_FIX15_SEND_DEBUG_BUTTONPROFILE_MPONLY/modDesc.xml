@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- STABLE IDENTITY GUARD: Keep the ZIP filename stable as FS25_FreshInvoiceSystem.zip for savegame recognition. Do not change the internal mod title/id between updates. -->
+<modDesc descVersion="105">
+    <author>Kaeden (custom build)</author>
+    <version>1.0.0.8</version>
+    <iconFilename>icon_freshInvoiceSystem.dds</iconFilename>
+    <title>
+        <en>Fresh Invoice System</en>
+        <de>Rechnungssystem (Neu)</de>
+    </title>
+    <description>
+    <en><![CDATA[Fresh Invoice System (FS25) - Multiplayer only.
+
+Changelog:
+- 1.0.0.2: Added market item list and auto-pricing.
+- 1.0.0.1: MP-only gating and UI stability fixes.]]></en>
+    <de><![CDATA[Fresh Invoice System (FS25) - Nur Multiplayer.
+
+Changelog:
+- 1.0.0.2: Markt-Artikel-Liste und Auto-Preis hinzugefügt.
+- 1.0.0.1: Multiplayer-Only und UI-Stabilitätsfixes.]]></de>
+</description>
+
+    <multiplayer supported="true"/>
+    <l10n filenamePrefix="translations/translation"/>
+
+    <inputBinding filename="inputBinding.xml"/>
+
+    <extraSourceFiles>
+        <sourceFile filename="src/FIS_main.lua"/>
+    </extraSourceFiles>
+</modDesc>

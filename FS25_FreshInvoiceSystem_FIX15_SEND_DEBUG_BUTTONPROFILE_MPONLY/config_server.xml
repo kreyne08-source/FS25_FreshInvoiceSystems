@@ -1,0 +1,8 @@
+
+<invoiceServerConfig>
+    <lateFeeCap multiplier="1.25"/>
+    <autoPay default="false"/>
+    <reminder intervalDays="3"/>
+    <tax enabled="true"/>
+    <aiDebtEnforcement enabled="true"/>
+</invoiceServerConfig>

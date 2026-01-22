@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<GUIProfiles>
+    <!-- Cosmetics only. Mirror the base-game pattern used by EnhancedLoanSystem so the menu never
+         falls back to the default bright list background. -->
+
+    <!-- Matches ELS' header overlay tint. Useful if any base profiles reference it. -->
+    <Preset name="colorListHeaderBackground" value="0 0 0 0.35"/>
+
+    <!-- ================================================================== -->
+    <!-- FS25-only compatibility profiles                                    -->
+    <!--                                                                     -->
+    <!-- This mod intentionally ships its own definitions for a few profile   -->
+    <!-- names (fs25_textSmall, fs25_button, etc.) so the game never falls    -->
+    <!-- back to baseReference (which produces the bright/white bars).       -->
+    <!--                                                                     -->
+    <!-- We DO NOT import anything from FS25. These are mod-local profiles   -->
+    <!-- built on FS25 base profiles that exist in the InGameMenu context.   -->
+    <!-- ================================================================== -->
+
+    <!-- Text helpers (used by dialogs and small labels) -->
+    <Profile name="fs25_textSmall" extends="fs25_textDefault">
+        <textSize value="16px"/>
+    </Profile>
+
+    <Profile name="fs25_textMedium" extends="fs25_textDefault">
+        <textSize value="20px"/>
+    </Profile>
+
+    <Profile name="fs25_textDark" extends="fs25_textDefault">
+        <textColor value="$preset_fs25_colorMainDark"/>
+    </Profile>
+
+    <!-- Header box used by some layouts -->
+    <Profile name="fs25_ingameMenuHeaderBox" extends="emptyPanel" with="anchorTopCenter">
+        <imageColor value="$preset_colorListHeaderBackground"/>
+        <flowDirection value="horizontal"/>
+        <wrapAround value="true"/>
+        <fitToElements value="false"/>
+        <autoValidateLayout value="true"/>
+        <hasFrame value="false"/>
+    </Profile>
+
+    <!-- Button row container (prevents white fallback bars) -->
+    <Profile name="fs25_buttonRow" extends="emptyPanel" with="anchorTopLeft">
+        <flowDirection value="horizontal"/>
+        <wrapAround value="false"/>
+        <autoValidateLayout value="true"/>
+        <hasFrame value="false"/>
+        <imageColor value="0 0 0 0"/>
+    </Profile>
+
+    <!-- Dialog button container -->
+    <Profile name="fs25_dialogButtonContainer" extends="fs25_buttonRow"/>
+
+    <!-- Generic button (used by dialogs).
+         Keep it FS25-safe by building on fs25_textDefault (available in-menu) and
+         avoid relying on any context-specific base button profile names.
+         This profile exists primarily to prevent the engine's white baseReference fallback. -->
+    <Profile name="fs25_button" extends="fs25_textDefault">
+        <!-- Simple, FS25-safe button look: no external textures, just tint + selection tint.
+             This avoids relying on any hidden base-game button profile names. -->
+        <textSize value="18px"/>
+        <textBold value="false"/>
+        <textUpperCase value="true"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+
+        <!-- subtle button plate -->
+        <imageColor value="0 0 0 0.18"/>
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <imageDisabledColor value="0 0 0 0.08"/>
+
+        <hasFrame value="false"/>
+    </Profile>
+
+    <Profile name="fs25_buttonSmall" extends="fs25_button">
+        <textSize value="16px"/>
+    </Profile>
+
+    <!-- SmoothList container: no baked white background -->
+    <Profile name="FIS_list" extends="emptyPanel" with="anchorStretchingYLeft pivotTopLeft">
+        <!-- Position and size are set on the element in the page XML -->
+    </Profile>
+
+    <!-- Alternating row colors like ELS (uses FS25 built-in presets) -->
+    <Profile name="FIS_listItem" extends="baseReference" with="anchorTopStretchingX alternating">
+        <height value="32px"/>
+        <imageColor value="$preset_fs25_colorGrey" />
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight" />
+        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50" />
+    </Profile>
+
+    <!-- Column header cell style (same as ELS_rowCell) -->
+    <Profile name="FIS_rowCell" extends="fs25_textDarkHighlight" with="anchorStretchingYLeft">
+        <textSize value="16px" />
+        <textBold value="true" />
+        <textUpperCase value="true" />
+        <textAlignment value="center" />
+    </Profile>
+
+
+    <!-- Body cell base (consistent row alignment) -->
+    <Profile name="FIS_cellBase" extends="fs25_textDarkHighlight" with="anchorStretchingYLeft">
+        <textSize value="16px" />
+        <textVerticalAlignment value="center" />
+    </Profile>
+
+    <Profile name="FIS_cellCenter" extends="FIS_cellBase">
+        <textAlignment value="center" />
+    </Profile>
+
+    <Profile name="FIS_cellRight" extends="FIS_cellBase">
+        <textAlignment value="right" />
+    </Profile>
+
+    <Profile name="FIS_cellLeft" extends="FIS_cellBase">
+        <textAlignment value="left" />
+    </Profile>
+
+    <!-- Header cell variants -->
+    <Profile name="FIS_headerBase" extends="FIS_rowCell" with="anchorStretchingYLeft">
+        <textVerticalAlignment value="center" />
+    </Profile>
+
+    <Profile name="FIS_headerCenter" extends="FIS_headerBase">
+        <textAlignment value="center" />
+    </Profile>
+
+    <Profile name="FIS_headerRight" extends="FIS_headerBase">
+        <textAlignment value="right" />
+    </Profile>
+
+    <Profile name="FIS_headerLeft" extends="FIS_headerBase">
+        <textAlignment value="left" />
+    </Profile>
+
+
+    <!-- Slider box aligned like ELS' slider (anchored top right) -->
+    <Profile name="FIS_ingameMenuSlider" extends="fs25_listSliderBox" with="anchorTopRight">
+        <!-- Position and size are set on the element in the page XML -->
+    </Profile>
+
+    <!-- ================================================================== -->
+    <!-- Create Invoice dialog profiles (FS25-only)                           -->
+    <!-- ================================================================== -->
+
+    <Profile name="FIS_dialogContentContainer" extends="fs25_dialogContentContainer">
+        <!-- Tall enough so the 5 line rows are visible and clickable -->
+        <size value="860px 650px"/>
+        <useFullVisibility value="false"/>
+    </Profile>
+
+    <Profile name="FIS_createDialog" extends="fs25_dialogBg">
+        <size value="900px 820px"/>
+    </Profile>
+
+    <Profile name="FIS_createDialogVBox" extends="emptyPanel" with="anchorMiddleRight">
+        <size value="820px 680px"/>
+        <flowDirection value="vertical"/>
+        <useFullVisibility value="false"/>
+        <alignmentX value="center"/>
+        <elementSpacing value="8px"/>
+    </Profile>
+
+    <Profile name="FIS_rowHBox" extends="emptyPanel">
+        <size value="800px 34px"/>
+        <flowDirection value="horizontal"/>
+        <alignmentY value="center"/>
+        <elementSpacing value="12px"/>
+    </Profile>
+
+    <Profile name="FIS_textInputWide" extends="fs25_textInput">
+        <size value="760px 31px"/>
+        <maxCharacters value="80"/>
+    </Profile>
+
+    <Profile name="FIS_lineHeaderRow" extends="emptyPanel">
+        <size value="800px 28px"/>
+        <flowDirection value="horizontal"/>
+        <alignmentY value="center"/>
+        <elementSpacing value="14px"/>
+    </Profile>
+
+    <Profile name="FIS_headerCellItem" extends="FIS_headerLeft">
+        <size value="360px 28px"/>
+    </Profile>
+    <Profile name="FIS_headerCellQty" extends="FIS_headerCenter">
+        <size value="120px 28px"/>
+    </Profile>
+    <Profile name="FIS_headerCellPrice" extends="FIS_headerCenter">
+        <size value="160px 28px"/>
+    </Profile>
+    <Profile name="FIS_headerCellUnit" extends="FIS_headerCenter">
+        <size value="120px 28px"/>
+    </Profile>
+
+    <Profile name="FIS_lineVBox" extends="emptyPanel">
+        <size value="800px 210px"/>
+        <flowDirection value="vertical"/>
+        <alignmentX value="center"/>
+        <elementSpacing value="6px"/>
+    </Profile>
+
+    <Profile name="FIS_lineRow" extends="emptyPanel">
+        <size value="800px 34px"/>
+        <flowDirection value="horizontal"/>
+        <alignmentY value="center"/>
+        <elementSpacing value="10px"/>
+    </Profile>
+
+    <Profile name="FIS_lineDesc" extends="fs25_textInput">
+        <size value="360px 31px"/>
+        <maxCharacters value="48"/>
+    </Profile>
+
+    <Profile name="FIS_lineQty" extends="fs25_textInput">
+        <size value="120px 31px"/>
+        <maxCharacters value="10"/>
+    </Profile>
+
+    <Profile name="FIS_linePrice" extends="fs25_textInput">
+        <size value="160px 31px"/>
+        <maxCharacters value="10"/>
+    </Profile>
+
+    <Profile name="FIS_totalsHBox" extends="emptyPanel">
+        <size value="800px 30px"/>
+        <flowDirection value="horizontal"/>
+        <alignmentY value="center"/>
+        <elementSpacing value="14px"/>
+    </Profile>
+</GUIProfiles>
